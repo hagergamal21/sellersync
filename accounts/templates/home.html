@@ -1,0 +1,662 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - SellerSync</title>
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <style>
+        /* General styling */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            line-height: 1.6;
+            background-color: #0d1c29;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            background-color: #0a1520;
+            padding: 1rem 5%;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #9c59d1;
+            text-decoration: none;
+        }
+
+        .navbar-center {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-center li {
+            margin: 0 1rem;
+        }
+
+        .navbar-center a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .navbar-center a:hover {
+            color: #9c59d1;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-container {
+            display: flex;
+            margin-right: 1rem;
+        }
+
+        .search-input {
+            padding: 0.5rem 1rem;
+            border-radius: 4px 0 0 4px;
+            border: none;
+            outline: none;
+            width: 250px;
+        }
+
+        .search-btn {
+            background-color: #9c59d1;
+            color: white;
+            border: none;
+            border-radius: 0 4px 4px 0;
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+        }
+
+        .auth-links {
+            display: flex;
+        }
+
+        .auth-link {
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            color: #fff;
+            margin-left: 1rem;
+            font-weight: 500;
+        }
+
+        /* Home section */
+        #home {
+            background-color: #0d1c29;
+            text-align: center;
+            padding: 8rem 2rem;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .welcome-text {
+            font-size: 5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #9c59d1, #6a5acd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            font-size: 1.5rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: #bbb;
+            margin-bottom: 0.5rem;
+            max-width: 800px;
+        }
+
+        /* About section */
+        #about {
+            background-color: #0f1e2c;
+            padding: 5rem 10%;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(45deg, #9c59d1, #6a5acd);
+            bottom: -10px;
+            left: 25%;
+        }
+
+        /* Services section */
+        #services {
+            background-color: #0d1c29;
+            padding: 5rem 10%;
+            text-align: center;
+        }
+
+        .service-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .service-card {
+            background-color: #15263e;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            padding: 2rem;
+            width: 300px;
+            transition: transform 0.3s;
+            position: relative;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-card h3 {
+            color: #fff;
+            margin-top: 2rem;
+        }
+
+        .service-card p {
+            color: #bbb;
+        }
+
+        .service-card a {
+            color: #9c59d1;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        .analyze {
+            background-color: rgba(156, 89, 209, 0.2);
+            color: #9c59d1;
+        }
+
+        .track {
+            background-color: rgba(106, 90, 205, 0.2);
+            color: #6a5acd;
+        }
+
+        /* Pricing section styling */
+        #pricing {
+            background-color: #0f1e2c;
+            padding: 5rem 10%;
+            text-align: center;
+        }
+
+        .pricing-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .pricing-card {
+            background-color: #15263e;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            padding: 2.5rem 2rem;
+            width: 300px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        .pricing-card.featured {
+            background-color: #1a2f4e;
+            border: 1px solid rgba(156, 89, 209, 0.5);
+        }
+
+        .pricing-card h2 {
+            font-size: 1.8rem;
+            color: #f0b849;
+            margin-bottom: 1.5rem;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .price-period {
+            color: #bbb;
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-description {
+            margin: 1.5rem 0;
+            color: #bbb;
+        }
+
+        .benefits-list {
+            text-align: left;
+            margin: 2rem 0;
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .benefits-list li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem;
+            color: #bbb;
+        }
+
+        .benefits-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #9c59d1;
+        }
+
+        .signup-btn {
+            display: inline-block;
+            padding: 0.8rem 2rem;
+            background-color: #9c59d1;
+            color: white;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .signup-btn:hover {
+            background-color: #8445b8;
+        }
+
+        /* Contact Section */
+        #contact {
+            background-color: #0d1c29;
+            padding: 5rem 10%;
+            text-align: center;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #0a1520;
+            color: #bbb;
+            padding: 3rem 10%;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            color: #fff;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+        }
+
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #9c59d1;
+        }
+
+        .social-links a,
+        .company-info a {
+            color: #999;
+            text-decoration: none;
+            transition: color 0.3s;
+            line-height: 2;
+        }
+
+        .social-links a:hover,
+        .company-info a:hover {
+            color: #9c59d1;
+        }
+
+        .footer-text {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin: 0;
+            color: #777;
+        }
+
+        /* Mobile responsive styles */
+        @media (max-width: 992px) {
+            .navbar {
+                flex-direction: column;
+                padding: 1rem;
+            }
+            
+            .navbar-left {
+                width: 100%;
+                justify-content: space-between;
+                margin-bottom: 1rem;
+            }
+            
+            .mobile-nav-toggle {
+                display: block;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
+            
+            .bar {
+                display: block;
+                width: 25px;
+                height: 3px;
+                margin: 5px 0;
+                background-color: #fff;
+            }
+            
+            .navbar-center {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 1rem 0;
+            }
+            
+            .navbar-center.active {
+                display: flex;
+            }
+            
+            .navbar-center li {
+                margin: 0.5rem 0;
+            }
+            
+            .navbar-right {
+                width: 100%;
+                flex-direction: column;
+            }
+            
+            .search-container {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+            
+            .search-input {
+                width: 100%;
+            }
+            
+            .auth-links {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .welcome-text {
+                font-size: 3rem;
+            }
+            
+            .pricing-card {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+
+        @media (min-width: 993px) {
+            .mobile-nav-toggle {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a href="#" class="logo">SellerSync</a>
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+        
+        <ul class="navbar-center">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        
+        <div class="navbar-right">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search">
+                <button class="search-btn">Search</button>
+            </div>
+            <div class="auth-links">
+                <a href="{% url 'login' %}" class="auth-link">Login</a>
+                <a href="{% url 'register' %}" class="auth-link">Register</a>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Section -->
+    <section id="home">
+        <div class="welcome-text">WELCOME</div>
+        <h3 class="section-subtitle">Here's Our Vision</h3>
+        <p class="section-description">Smart Selling Starts Here – Automate, Optimize, Succeed!</p>
+        <p class="section-description">Empowering Sellers. Simplifying E-Commerce. Maximizing Growth.</p>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="section-content">
+            <h1 class="section-title">About Us</h1>
+            <p class="section-description">
+                SellerSync (SS) is an AI-powered platform designed to streamline inventory management, order processing, and pricing optimization for online sellers. With automated stock tracking, centralized order management, and AI-driven pricing recommendations, we help businesses minimize errors, enhance efficiency, and maximize profitability.
+            </p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <div class="section-content">
+            <h1 class="section-title">Our Services</h1>
+            <div class="service-container">
+                <div class="service-card">
+                    <span class="tag analyze">Analyze</span>
+                    <h3>AI-Powered Demand Forecasting</h3>
+                    <p>Predict future demand with AI-driven insights. Our system analyzes market trends, customer behavior, and historical data to help you optimize inventory and reduce stock risks.</p>
+                    <a href="#">Read more</a>
+                </div>
+                <div class="service-card">
+                    <span class="tag track">Optimize</span>
+                    <h3>Smart Price Optimization</h3>
+                    <p>Maximize profits with AI-powered price recommendations. Our system dynamically suggests optimal pricing based on competitor analysis, demand fluctuations, and market trends.</p>
+                    <a href="#">Read more</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section (Replacing Portfolio) -->
+    <section id="pricing">
+        <div class="section-content">
+            <h1 class="section-title">Pricing</h1>
+            <p class="section-description">Choose the plan that's right for your business and start optimizing your e-commerce operations today.</p>
+            
+            <div class="pricing-container">
+                <div class="pricing-card">
+                    <h2>BASIC</h2>
+                    <div class="price">9</div>
+                    <span class="price-period">USD per month</span>
+                    <p class="pricing-description">Perfect for small businesses just getting started with e-commerce optimization</p>
+                    <ul class="benefits-list">
+                        <li>Basic inventory tracking</li>
+                        <li>Simple order management</li>
+                        <li>Weekly market trend reports</li>
+                    </ul>
+                    <button class="signup-btn">Sign up now</button>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <h2>PRO</h2>
+                    <div class="price">29</div>
+                    <span class="price-period">USD per month</span>
+                    <p class="pricing-description">Advanced features for growing businesses looking to scale operations</p>
+                    <ul class="benefits-list">
+                        <li>Advanced inventory forecasting</li>
+                        <li>Multi-channel order processing</li>
+                        <li>AI-powered pricing optimization</li>
+                    </ul>
+                    <button class="signup-btn">Sign up now</button>
+                </div>
+                
+                <div class="pricing-card">
+                    <h2>ADVANCED</h2>
+                    <div class="price">49</div>
+                    <span class="price-period">USD per month</span>
+                    <p class="pricing-description">Enterprise-level solutions for established e-commerce businesses</p>
+                    <ul class="benefits-list">
+                        <li>Custom AI demand forecasting</li>
+                        <li>Enterprise integration support</li>
+                        <li>Dedicated account manager</li>
+                    </ul>
+                    <button class="signup-btn">Sign up now</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-content">
+            <h1 class="section-title">Contact</h1>
+            <p class="section-description">We'd love to hear from you. Reach out with any inquiries or collaboration opportunities.</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>SellerSync</h3>
+                <p class="address">Optimize your pricing, forecast demand, and maximize profits with SellerSync. Have questions or need support? Reach out to us—we're here to help!</p>
+                <p><b>SellerSync@gmail.com</b></p>
+            </div>
+            <div class="footer-section">
+                <h3>Social</h3>
+                <div class="social-links">
+                    <a href="https://facebook.com" target="_blank">Facebook</a><br>
+                    <a href="https://instagram.com" target="_blank">Instagram</a><br>
+                    <a href="https://linkedin.com" target="_blank">LinkedIn</a><br>
+                    <a href="https://youtube.com" target="_blank">YouTube</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <div class="company-info">
+                    <a href="#">About Us</a><br>
+                    <a href="#">Contact Us</a><br>
+                    <a href="#">Services</a><br>
+                    <a href="#">Privacy Policy</a>
+                </div>
+            </div>
+        </div>
+        <p class="footer-text">© 2024 SellerSync, Inc. All rights reserved.</p>
+    </footer>
+
+    <script src="{% static 'js/home.js' %}"></script>
+    <script>
+        // JavaScript for mobile navigation toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+            const navLinks = document.querySelector('.navbar-center');
+            
+            if (mobileNavToggle) {
+                mobileNavToggle.addEventListener('click', function() {
+                    navLinks.classList.toggle('active');
+                });
+            }
+            
+            // Close mobile menu when clicking a nav link
+            const links = document.querySelectorAll('.navbar-center a');
+            links.forEach(link => {
+                link.addEventListener('click', function() {
+                    navLinks.classList.remove('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>

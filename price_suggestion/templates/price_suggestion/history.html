@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction History</title>
+    <link rel="stylesheet" href="/static/css/price_suggestion.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="logo">SellerSync</div>
+        <nav>
+            <ul>
+                <li><a href="/price-suggestion/form/">Price Suggestion</a></li>
+                <li class="active"><a href="/price-suggestion/history/">Sales History</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="header-bar">
+            <h1>📜 Prediction History</h1>
+            <button class="download-btn" onclick="downloadReport()">Export Data</button>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Sub-Category</th>
+                        <th>Price ($)</th>
+                        <th>Predicted Sales</th>
+                        <th>Suggested Price ($)</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for prediction in predictions %}
+                    <tr>
+                        <td>{{ prediction.id }}</td>
+                        <td>{{ prediction.sub_category }}</td>
+                        <td>{{ prediction.price }}</td>
+                        <td>{{ prediction.predicted_sales }}</td>
+                        <td>
+                            {% if prediction.suggested_price %}
+                                {{ prediction.suggested_price }}
+                            {% else %}
+                                <em>Not available</em>
+                            {% endif %}
+                        </td>
+                        <td>{{ prediction.created_at }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="6">No predictions found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="back-link">
+            <a href="/price-suggestion/form/">🔙 Submit a new prediction</a>
+        </div>
+    </div>
+
+    <script src="/static/js/price_suggestion.js"></script>
+</body>
+</html>

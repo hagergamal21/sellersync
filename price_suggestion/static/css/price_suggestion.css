@@ -1,0 +1,280 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e2f;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #252538;
+    padding: 0 20px;
+    height: 60px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    color: #ff79c6;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #ccc;
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+nav ul li a:hover {
+    color: #fff;
+    background: rgba(255, 121, 198, 0.1);
+}
+
+nav ul li.active a {
+    color: #fff;
+    background: #ff79c6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    flex: 1;
+}
+
+.header-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.header-bar h1 {
+    margin: 0;
+    font-size: 28px;
+    background: linear-gradient(90deg, #ff79c6, #8a65ff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.download-btn {
+    background: #ff79c6;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.download-btn:hover {
+    background: #f368b9;
+}
+
+.form-container, .result-container, .table-container {
+    background: #29293d;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    max-width: 500px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #ccc;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 5px;
+    border: 1px solid #444;
+    background: #333;
+    color: #fff;
+    box-sizing: border-box;
+}
+
+.form-group input:focus, .form-group select:focus {
+    outline: none;
+    border-color: #ff79c6;
+}
+
+.submit-btn {
+    background: #ff79c6;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    color: white;
+    border-radius: 5px;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+    background: #f368b9;
+}
+
+.view-history {
+    margin-top: 25px;
+    text-align: center;
+}
+
+.view-history a {
+    color: #ff79c6;
+    text-decoration: none;
+}
+
+.view-history a:hover {
+    text-decoration: underline;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #444;
+}
+
+th {
+    color: #ff79c6;
+    font-weight: bold;
+}
+
+tr:hover {
+    background: rgba(255, 121, 198, 0.1);
+}
+
+.result-item {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.result-label {
+    font-weight: bold;
+    width: 150px;
+    color: #ff79c6;
+}
+
+.result-value {
+    font-size: 18px;
+}
+
+.chart-container {
+    margin-top: 30px;
+    height: 400px;
+    max-width: 100%;
+    position: relative;
+}
+
+.chart-container canvas {
+    max-height: 100%;
+    width: 100%;
+}
+
+.navigation-links, .back-link {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.navigation-links a, .back-link a {
+    color: #ff79c6;
+    text-decoration: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.navigation-links a:hover, .back-link a:hover {
+    background: rgba(255, 121, 198, 0.1);
+}
+
+/* Mobile responsive styles */
+@media (max-width: 768px) {
+    .top-header {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 20px;
+    }
+
+    nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav ul li {
+        margin: 10px 0;
+    }
+
+    .header-bar {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .form-container, .result-container, .table-container {
+        padding: 20px;
+    }
+    
+    .form-group {
+        max-width: 100%;
+    }
+
+    .result-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .result-label {
+        width: 100%;
+        margin-bottom: 5px;
+    }
+    
+    .navigation-links {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .chart-container {
+        height: 300px;
+    }
+}

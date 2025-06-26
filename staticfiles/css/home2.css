@@ -1,0 +1,302 @@
+/* ============================= */
+/* 🌎 Global Reset & Variables */
+/* ============================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+:root {
+    --gradient: linear-gradient(45deg, #ff3366, #ff6b6b, #4834d4, #686de0);
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --border: 1px solid rgba(255, 255, 255, 0.1);
+    --shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --dark-bg: #0a0a0a;
+}
+
+/* ============================= */
+/* 🌍 Global Page Styles */
+/* ============================= */
+body {
+    background: #081b29;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* ============================= */
+/* 📌 Navbar Styles */
+/* ============================= */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 1.2rem 5%;
+    backdrop-filter: blur(12px);
+    background: var(--glass-bg);
+    border-bottom: var(--border);
+    z-index: 1000;
+    transition: padding 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: var(--shadow);
+}
+
+.navbar.scrolled {
+    padding: 0.8rem 5%;
+    background: rgba(10, 10, 10, 0.95);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradient 8s linear infinite;
+    background-size: 300%;
+    letter-spacing: -0.5px;
+}
+
+/* ============================= */
+/* 🔍 Search Bar */
+/* ============================= */
+.container-fluid {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.form-control {
+    width: 300px;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+
+.form-control:focus {
+    border-color: #6a0dad;
+    box-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+}
+
+.btn-outline-success {
+    color: #8a2be2;
+    border: 1px solid #8a2be2;
+    border-radius: 8px;
+    padding: 10px 15px;
+    background-color: transparent;
+    transition: all 0.3s ease-in-out;
+    margin-left: 10px;
+}
+
+.btn-outline-success:hover {
+    background-color: #8a2be2;
+    color: white;
+}
+
+/* ============================= */
+/* 👤 Profile & Dropdown */
+/* ============================= */
+.profile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--gradient);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.profile-icon:hover {
+    transform: scale(1.1);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background: rgba(10, 10, 10, 0.95);
+    border: var(--border);
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    display: none;
+    z-index: 1001;
+}
+
+.dropdown-menu.active {
+    display: block;
+}
+
+.dropdown-menu a {
+    color: white;
+    text-decoration: none;
+    display: block;
+    padding: 8px 16px;
+    transition: background 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+}
+
+/* ============================= */
+/* 📱 Mobile Navigation Toggle */
+/* ============================= */
+.mobile-nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    position: relative;
+    z-index: 1001;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+.mobile-nav-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-toggle .bar {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 2px;
+    background: white;
+    transition: all 0.4s ease;
+}
+
+.mobile-nav-toggle .bar:nth-child(1) { top: 14px; }
+.mobile-nav-toggle .bar:nth-child(2) { top: 19px; }
+.mobile-nav-toggle .bar:nth-child(3) { top: 24px; }
+
+/* ============================= */
+/* 🎯 "Getting Started" Section */
+/* ============================= */
+.container {
+    max-width: 800px;
+    padding: 20px;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.subheading {
+    font-size: 14px;
+    color: #bbb;
+    margin-bottom: 5px;
+}
+
+.main-heading {
+    font-size: 42px;
+    font-weight: bold;
+    color: white;
+    margin: 0;
+}
+
+.welcome-message {
+    font-size: 18px;
+    margin-top: 10px;
+    color: #ddd;
+}
+
+/* ============================= */
+/* ✨ Two Buttons */
+/* ============================= */
+.two-buttons {
+    display: flex;
+    justify-content: center; /* Center buttons horizontally */
+    align-items: center; /* Center buttons vertically */
+    width: 100%; /* Full width */
+    margin: 40px auto; /* Add some margin */
+    padding-top: 80px; /* Adjust top padding */
+    gap: 20px; /* Space between buttons */
+}
+
+.two-buttons a {
+    color: #fff !important;
+    font-size: 25px;
+    font-family: 'Roboto', sans-serif;
+    padding: 10px 45px;
+    border-radius: 20px;
+    border: 2px solid #fff;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease; /* Smooth hover transition */
+}
+
+#first-link, #second-link {
+    background: linear-gradient(90deg, #1d084b, #071c59);
+}
+
+#first-link:hover, #second-link:hover {
+    opacity: .85;
+    transform: scale(1.05); /* Slight scale effect on hover */
+}
+
+/* Responsive Adjustments */
+@media only screen and (max-width: 1400px) {
+    .two-buttons {
+        width: 80%; /* Wider on larger screens */
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .two-buttons {
+        width: 90%; /* Wider on medium screens */
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .two-buttons {
+        width: 100%; /* Full width on small screens */
+        flex-direction: column; /* Stack buttons vertically */
+        gap: 15px; /* Reduce gap between stacked buttons */
+    }
+
+    .two-buttons a {
+        font-size: 18px; /* Smaller font size for mobile */
+        padding: 8px 30px; /* Adjust padding for mobile */
+    }
+}
+/* ============================= */
+/* ✨ Animations */
+/* ============================= */
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}

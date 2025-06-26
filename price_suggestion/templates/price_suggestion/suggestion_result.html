@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Suggestion Result</title>
+    <link rel="stylesheet" href="/static/css/price_suggestion.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="logo">SellerSync</div>
+        <nav>
+            <ul>
+                <li class="active"><a href="/price-suggestion/form/">Price Suggestion</a></li>
+                <li><a href="/price-suggestion/history/">Sales History</a></li>
+                <li><a href="#">Analytics</a></li>
+                <li><a href="#">Settings</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="header-bar">
+            <h1>💡 Price Suggestion Result</h1>
+            <button class="download-btn" onclick="downloadReport()">Download Report</button>
+        </div>
+        
+        <div class="result-container">
+            <div class="result-item">
+                <span class="result-label">Sub-Category:</span>
+                <span class="result-value">{{ sub_category }}</span>
+            </div>
+            
+            <div class="result-item">
+                <span class="result-label">Price:</span>
+                <span class="result-value">${{ price }}</span>
+            </div>
+            
+            <div class="result-item">
+                <span class="result-label">Predicted Sales:</span>
+                <span class="result-value">{{ predicted_sales }}</span>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Suggested Price:</span>
+                <span class="result-value">${{ suggested_price }}</span>
+            </div>
+            
+
+            <div class="chart-container">
+                <canvas id="priceChart"></canvas>
+            </div>
+            
+            <div class="navigation-links">
+                <a href="/price-suggestion/form/">🔙 Try another suggestion</a>
+                <a href="/price-suggestion/history/">📜 View Prediction History</a>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script>
+        const chartCanvas = document.getElementById("priceChart");
+        if (chartCanvas) {
+            const ctx = chartCanvas.getContext("2d");
+
+            const labels = {{ chart_labels|safe }};
+            const currentPrices = {{ chart_current|safe }};
+            const suggestedPrices = {{ chart_suggested|safe }};
+
+            new Chart(ctx, {
+                type: "bar",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Price",
+                            data: [currentPrices[0], suggestedPrices[1]],
+                            backgroundColor: [
+                                "rgba(255, 121, 198, 0.7)", // Current Price color
+                                "rgba(138, 101, 255, 0.7)"  // Suggested Price color
+                            ],
+                            borderColor: [
+                                "#ff79c6",
+                                "#8a65ff"
+                            ],
+                            borderWidth: 2,
+                            borderRadius: 10
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: "#29293d",
+                            titleColor: "#ff79c6",
+                            bodyColor: "#fff",
+                            borderColor: "#444",
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: "#ccc",
+                                font: {
+                                    weight: "bold"
+                                }
+                            },
+                            grid: {
+                                color: "rgba(255, 255, 255, 0.1)"
+                            }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                color: "#ccc"
+                            },
+                            grid: {
+                                color: "rgba(255, 255, 255, 0.1)"
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+
+    <script src="/static/js/price_suggestion.js"></script>
+</body>
+</html>

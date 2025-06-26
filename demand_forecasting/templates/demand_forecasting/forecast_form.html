@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="main-content">
+    <div class="header">
+        <h2>Demand Forecasting</h2>
+        <div>
+            <button class="primary-btn" onclick="goToPricing()">Pricing Suggestions</button>
+            <button class="primary-btn" onclick="downloadReport()">Download Report</button>
+
+        </div>
+    </div>
+
+    <div class="forecast-form-container">
+        {% if messages %}
+            <div class="messages">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+        
+        <form method="post" action="{% url 'demand_forecasting:forecast' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="subcategory">Sub-Category:</label>
+                <select name="subcategory" id="subcategory" required>
+                    <option value="" disabled selected>Select a subcategory</option>
+                    {% for subcategory in subcategories %}
+                        <option value="{{ subcategory.name }}">{{ subcategory.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="semantic_label">Semantic Label:</label>
+                <select name="semantic_label" id="semantic_label" required>
+                    <option value="" disabled selected>Select a semantic label</option>
+                    {% for label in semantic_labels %}
+                        <option value="{{ label.label }}">{{ label.label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="days_to_predict">Days to Predict:</label>
+                <input type="number" name="days_to_predict" id="days_to_predict" value="30" min="1" required>
+            </div>
+            <div class="form-group">
+                <label for="current_inventory">Current Inventory:</label>
+                <input type="number" name="current_inventory" id="current_inventory" value="0" step="any" min="0" required>
+            </div>
+            <div class="form-group">
+                <label for="base_price">Base Price ($):</label>
+                <input type="number" name="base_price" id="base_price" value="100" step="any" min="0" required>
+            </div>
+            <button type="submit" class="submit-btn">Run Forecast</button>
+        </form>
+    </div>
+</div>
+
+<style>
+    body {
+        background-color: #0d1b30 !important; /* Dark blue background */
+    }
+    
+    .main-content {
+        background-color: #0d1b30;
+    }
+    
+    .forecast-form-container {
+        background: #252542;
+        padding: 30px;
+        border-radius: 10px;
+        max-width: 600px;
+        margin: 20px auto;
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        display: block;
+        margin-bottom: 8px;
+        color: #f8f8f2;
+    }
+    
+    input, select {
+        width: 100%;
+        padding: 12px;
+        border-radius: 5px;
+        border: 1px solid #383850;
+        background-color: #1e1e2e;
+        color: #f8f8f2;
+        box-sizing: border-box;
+    }
+    
+    input::placeholder {
+        color: #6272a4;
+    }
+    
+    input:focus, select:focus {
+        outline: none;
+        border-color: #bd93f9;
+    }
+    
+    select option {
+        background-color: #1e1e2e;
+        color: #f8f8f2;
+    }
+    
+    .submit-btn {
+        background: #6272a4;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        transition: background 0.3s ease;
+    }
+    
+    .submit-btn:hover {
+        background: #7f8fc7;
+    }
+    
+    .messages {
+        color: #ff5555;
+        margin-bottom: 20px;
+        background: rgba(255, 85, 85, 0.1);
+        padding: 10px;
+        border-radius: 5px;
+    }
+    
+    .header h2 {
+        color: #f8f8f2;
+    }
+    
+    @media (max-width: 600px) {
+        .forecast-form-container {
+            margin: 10px;
+            padding: 20px;
+        }
+    }
+</style>
+<script src="{% static 'js/dashboard_template.js' %}"></script>
+{% endblock %}

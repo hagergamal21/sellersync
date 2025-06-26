@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - SellerSync</title>
+    <link rel="stylesheet" href="{% static 'css/home2.css' %}">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">SellerSync</div>
+
+            <!-- Search Bar -->
+            <div class="search-bar">
+                <form class="d-flex" role="search">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </div>
+
+            <!-- Profile Section -->
+            <div class="profile">
+                {% if user.is_authenticated %}
+                    <div class="profile-info">
+                        <span class="username">{{ user.username }}</span> <!-- Display username -->
+                        <div class="profile-icon">👤</div>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
+                {% else %}
+                    <a href="{% url 'login' %}" class="login-btn">Login</a>
+                {% endif %}
+            </div>
+
+            <!-- Mobile Navigation Toggle -->
+            <button class="mobile-nav-toggle" aria-label="Toggle navigation">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="main-heading">Getting Started</h1>
+        <p class="welcome-message">👋 Welcome to SellerSync!</p>
+
+        <!-- Buttons -->
+        <div class="two-buttons">
+            <a id="first-link" href="{% url 'demand_forecasting:forecast' %}">Demand Forecasting</a>
+            <a id="second-link" href="{% url 'price_suggestion:price_suggestion_form' %}">Pricing Suggestion</a>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay"></div>
+
+    <!-- Scripts -->
+    <script src="{% static 'js/home2.js' %}"></script>
+</body>
+</html>
